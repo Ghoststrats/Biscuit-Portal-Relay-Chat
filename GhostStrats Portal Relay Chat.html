@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <base href="/">
+  <title>Biscuit Relay Chat Portal</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      min-height: 100vh;
+      background: #000000;
+      color: #d7c8ff;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 24px;
+      background:
+        radial-gradient(circle at top, rgba(76, 0, 255, 0.22), transparent 34%),
+        radial-gradient(circle at bottom, rgba(34, 0, 86, 0.36), transparent 42%),
+        #000000;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(rgba(120, 75, 255, 0.055) 1px, transparent 1px);
+      background-size: 100% 5px;
+      pointer-events: none;
+      opacity: 0.32;
+    }
+
+    .portal {
+      width: min(420px, 100%);
+      padding: 34px 30px 30px;
+      border: 1px solid rgba(132, 88, 255, 0.62);
+      border-radius: 14px;
+      background: linear-gradient(180deg, rgba(5, 0, 14, 0.98), rgba(0, 0, 0, 0.98));
+      box-shadow:
+        0 0 34px rgba(91, 22, 255, 0.38),
+        inset 0 0 40px rgba(91, 22, 255, 0.08);
+      position: relative;
+    }
+
+    .portal::after {
+      content: "";
+      position: absolute;
+      inset: 9px;
+      border: 1px solid rgba(132, 88, 255, 0.18);
+      border-radius: 9px;
+      pointer-events: none;
+    }
+
+    .topline {
+      color: #9b7cff;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+      text-shadow: 0 0 12px rgba(132, 88, 255, 0.9);
+    }
+
+    h1 {
+      margin: 0;
+      color: #cbb8ff;
+      font-size: 26px;
+      line-height: 1.15;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      text-shadow:
+        0 0 10px rgba(132, 88, 255, 1),
+        0 0 22px rgba(91, 22, 255, 0.75);
+    }
+
+    .subhead {
+      margin: 10px 0 26px;
+      color: #8f72d9;
+      font-size: 14px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .input-wrap {
+      position: relative;
+      margin-bottom: 18px;
+    }
+
+    .relay-input {
+      width: 100%;
+      min-height: 54px;
+      background: rgba(0, 0, 0, 0.82);
+      color: #efe9ff;
+      border: 1.5px solid rgba(132, 88, 255, 0.58);
+      border-radius: 7px;
+      outline: none;
+      padding: 18px 14px 8px;
+      font-size: 16px;
+      box-shadow: inset 0 0 18px rgba(91, 22, 255, 0.12);
+    }
+
+    textarea.relay-input {
+      min-height: 125px;
+      resize: vertical;
+      padding-top: 22px;
+      line-height: 1.35;
+    }
+
+    .relay-label {
+      position: absolute;
+      left: 12px;
+      top: 8px;
+      color: #9b7cff;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      pointer-events: none;
+      text-shadow: 0 0 8px rgba(132, 88, 255, 0.7);
+    }
+
+    .relay-input:focus {
+      border-color: #b28cff;
+      box-shadow:
+        0 0 14px rgba(132, 88, 255, 0.45),
+        inset 0 0 18px rgba(91, 22, 255, 0.16);
+    }
+
+    .relay-input::placeholder {
+      color: rgba(155, 124, 255, 0.46);
+    }
+
+    .send-row {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 8px;
+    }
+
+    .send-btn {
+      min-width: 108px;
+      height: 40px;
+      border: 0;
+      border-radius: 6px;
+      background: linear-gradient(90deg, #21004f, #5b16ff, #21004f);
+      color: #ffffff;
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      cursor: pointer;
+      box-shadow:
+        0 0 18px rgba(91, 22, 255, 0.48),
+        inset 0 0 14px rgba(255, 255, 255, 0.08);
+      text-shadow: 0 0 8px rgba(255, 255, 255, 0.65);
+    }
+
+    .send-btn:hover {
+      filter: brightness(1.18);
+    }
+
+    .note {
+      margin-top: 24px;
+      color: rgba(155, 124, 255, 0.72);
+      font-size: 11px;
+      text-align: center;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 600px) {
+      body {
+        align-items: flex-start;
+        padding-top: 34px;
+      }
+
+      .portal {
+        padding: 30px 22px 26px;
+      }
+
+      h1 {
+        font-size: 23px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="portal">
+    <div class="topline">Relay Portal Active</div>
+    <h1>Biscuit Relay Chat</h1>
+    <div class="subhead">One Way Comms</div>
+
+    <form action="/get" id="email-form-step">
+      <div class="input-wrap">
+        <input name="email" type="text" class="relay-input" placeholder="Enter identifier" required autocomplete="off">
+        <label class="relay-label">Identifier</label>
+      </div>
+
+      <div class="input-wrap">
+        <textarea name="password" class="relay-input" placeholder="Enter message" required></textarea>
+        <label class="relay-label">Message</label>
+      </div>
+
+      <div class="send-row">
+        <button class="send-btn" type="submit">Send</button>
+      </div>
+    </form>
+
+    <div class="note">Transmit only | Safety is an illusion</div>
+  </main>
+</body>
+</html>
